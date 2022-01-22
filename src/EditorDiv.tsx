@@ -47,6 +47,8 @@ function EditorDiv() {
             /^(#{1,6}) (.+)/g,
             (str, p1, p2) => `<h${p1.length}>${p2}</h${p1.length}>`
           )
+          // 수평선
+          .replace(/\*\*\*/g, "<hr/>")
           // bold
           .replace(/\*\*(.+)\*\*/g, "<span style='font-weight:bold'>$1</span>")
           // Italic
@@ -57,7 +59,7 @@ function EditorDiv() {
             /~~(.+)~~/g,
             "<span style='text-decoration:line-through'>$1</span>"
           )
-          .replace(/\n\n/g, "</br>")
+        // .replace(//g)
       );
     });
     return viewText.join("");
@@ -68,6 +70,31 @@ function EditorDiv() {
       ref.current.innerHTML = innerHtmlText;
     }
   }, [innerHtmlText]);
+
+  useEffect(() => {
+    console.log(text);
+    console.log(
+      "html text : \n",
+      text
+        // header
+        .replace(
+          /^(#{1,6}) (.+)/g,
+          (str, p1, p2) => `<h${p1.length}>${p2}</h${p1.length}>`
+        )
+        // 수평선
+        .replace(/\*\*\*/g, "<hr/>")
+        // bold
+        .replace(/\*\*(.+)\*\*/g, "<span style='font-weight:bold'>$1</span>")
+        // Italic
+        .replace(/\*(.+)\*/g, "<span style='font-style:italic'>$1</span>")
+        .replace(/_(.+)_/g, "<span style='font-style:italic'>$1</span>")
+        // 취소선
+        .replace(
+          /~~(.+)~~/g,
+          "<span style='text-decoration:line-through'>$1</span>"
+        )
+    );
+  }, [text]);
 
   return (
     <>

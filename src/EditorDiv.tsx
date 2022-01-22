@@ -37,20 +37,20 @@ function EditorDiv() {
   );
 
   const innerHtmlText = useMemo<string>(() => {
-    const splitedText = text.replace(/\n\n/g, "<br/>\n").split("\n");
+    const splitedText = text.replace(/\n{2,}/g, "<br/>\n").split("\n");
     console.log(splitedText);
     const viewText = splitedText.map((text) => {
       return (
         text
-          // header
+          // h1
           .replace(
             /^(#{1,6}) (.+)/g,
             (str, p1, p2) => `<h${p1.length}>${p2}</h${p1.length}>`
           )
           // 수평선
-          .replace(/\*\*\*/g, "<hr/>")
+          .replace(/\*\*\*/g, `<hr/>`)
           // bold
-          .replace(/\*\*(.+)\*\*/g, "<span style='font-weight:bold'>$1</span>")
+          .replace(/\*\*(.+)\*\*/g, `<span style='font-weight:bold'>$1</span>`)
           // Italic
           .replace(/\*(.+)\*/g, "<span style='font-style:italic'>$1</span>")
           .replace(/_(.+)_/g, "<span style='font-style:italic'>$1</span>")
@@ -58,6 +58,11 @@ function EditorDiv() {
           .replace(
             /~~(.+)~~/g,
             "<span style='text-decoration:line-through'>$1</span>"
+          )
+          // 링크
+          .replace(
+            /\[(.+)\]\((.+)\)/,
+            (str, p1, p2) => `<a href="${p2}">${p1}</a>`
           )
         // .replace(//g)
       );
@@ -76,11 +81,17 @@ function EditorDiv() {
     console.log(
       "html text : \n",
       text
-        // header
-        .replace(
-          /^(#{1,6}) (.+)/g,
-          (str, p1, p2) => `<h${p1.length}>${p2}</h${p1.length}>`
-        )
+        // h1
+        .replace(/^# (.+)/g, `<h1>$1</h1>`)
+        .replace(/^## (.+)/g, `<h2>$1</h2>`)
+        .replace(/^### (.+)/g, `<h3>$1</h3>`)
+        .replace(/^#### (.+)/g, `<h4>$1</h4>`)
+        .replace(/^##### (.+)/g, `<h5>$1</h5>`)
+        .replace(/^###### (.+)/g, `<h6>$1</h6>`)
+        // .replace(
+        //   /^(#{1,6}) (.+)/g,
+        //   (str, p1, p2) => `<h${p1.length}>${p2}</h${p1.length}>`
+        // )
         // 수평선
         .replace(/\*\*\*/g, "<hr/>")
         // bold

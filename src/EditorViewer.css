@@ -1,0 +1,20 @@
+pre {
+}
+
+blockquote {
+  background-color: bisque;
+}
+
+table {
+  border: solid 1px;
+}
+
+td {
+  border-style: solid;
+  border-width: 1px;
+}
+
+th {
+  border-style: solid;
+  border-width: 1px;
+}

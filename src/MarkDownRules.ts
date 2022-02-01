@@ -11,19 +11,15 @@ const markDownRules: Array<markDownRule> = [
     },
   },
   {
-    reg: /\*\*([^*\n]+)\*\*/g,
+    reg: /(\*|_){2}([^*\n]+)(\*|_){2}/g,
     replaceStr: `<span style='font-weight:bold'>$1</span>`,
   },
   {
-    reg: /__([^_\n]+)__/g,
-    replaceStr: `<span style='font-weight:bold'>$1</span>`,
-  },
-  {
-    reg: /\*([^*\n]+)\*/g,
+    reg: /(\*|_)([^*\n]+)(\*|_)/g,
     replaceStr: `<span style='font-style:italic'>$1</spna>`,
   },
   {
-    reg: /^>(.+)/g,
+    reg: /^>\s(.+)/g,
     replaceStr: `<blockquote>$1</blockquote>`,
   },
 ];

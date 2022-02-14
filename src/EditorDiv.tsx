@@ -49,10 +49,12 @@ function EditorDiv() {
     const viewText = splitedText.map((text) => {
       return (
         text
+          .replace(/([^\n]+)\n(={3,})/g, "<h1>$1</h1>")
           // 수평선
           .replace(/\*{3,}/g, `<hr/>`)
           // bold
           .replace(/\*\*(.+)\*\*/g, `<span style='font-weight:bold'>$1</span>`)
+          .replace(/__(.+)__/g, `<span style='font-weight:bold'>$1</span>`)
           // Italic
           .replace(/\*(.+)\*/g, `<span style='font-style:italic'>$1</span>`)
           .replace(/_(.+)_/g, "<span style='font-style:italic'>$1</span>")
@@ -62,12 +64,9 @@ function EditorDiv() {
             "<span style='text-decoration:line-through'>$1</span>"
           )
           // 링크 to-> a tag
-          .replace(/"(?!(http|https):\/\/(.*))/g, "<a href='$&'>$&</a>")
+          .replace(/"(?!(http|https):\/\/(.+))/gi, `<a href='$1'>$&</a>`)
           // 링크 이름 변경
-          .replace(
-            /\[(.+)\]\((.*)\)/g,
-            (str, p1, p2) => `<a href="${p2}">${p1}</a>`
-          )
+          .replace(/\[(.*)\]\((.*)\)/g, `<a href="$2">$1</a>`)
         // .replace(//g)
       );
     });

@@ -44,12 +44,15 @@ function EditorDiv() {
       /(^|\n)(#{1,6})\s(.+)/g,
       (str, p1, p2, p3) => `<h${p2.length}>${p3}</h${p2.length}>\n\n`
     );
-    const splitedText = firstReplacedText.split(/\n{2,}/g);
+    const splitedText = firstReplacedText.split(/\n{2,}/g).map((value) => {
+      return `<p>${value}</p>`;
+    });
     // console.log(splitedText);
     const viewText = splitedText.map((text) => {
       return (
         text
           .replace(/([^\n]+)\n(={3,})/g, "<h1>$1</h1>")
+          .replace(/([^\n]+)\n(-{3,})/g, "<h2>$1</h2>")
           // 수평선
           .replace(/\*{3,}/g, `<hr/>`)
           // bold

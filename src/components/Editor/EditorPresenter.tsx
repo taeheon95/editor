@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const View = styled.div`
@@ -15,6 +15,10 @@ const Editor = styled.textarea`
 `;
 
 function EditorPresenter() {
+  useEffect(() => {
+    return () => {};
+  }, []);
+
   return <Editor />;
 }
 

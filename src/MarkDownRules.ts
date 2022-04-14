@@ -23,7 +23,7 @@ const markDownRules: Array<markDownRule> = [
     replaceStr: `<span style='font-weight:bold'>$1</span>`,
   },
   {
-    reg: /__([^_\n]+)__/g,
+    reg: /__([^*\n]+)\*\*/g,
     replaceStr: `<span style='font-weight:bold'>$1</span>`,
   },
   {
